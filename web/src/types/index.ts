@@ -10,4 +10,6 @@ export interface RepoEntity {
   description: string;
   language: string;
   forks: number;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  created_at: string;
 }

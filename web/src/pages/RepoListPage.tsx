@@ -1,9 +1,28 @@
+import { useState } from 'react';
 import { Repo } from '../components';
 import { useFetch } from '../hooks';
 import { ListResponse, RepoEntity } from '../types';
 
 export function RepositoryListPage() {
+  const [filterLanguage, setFilterLanauge] = useState('');
   const { loading, data, error } = useFetch<ListResponse<RepoEntity>>('repos');
+
+  const filterData = () => {
+    if (!data) {
+      return null;
+    }
+
+    const unfilterdData = data.data.sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+
+    if (filterLanguage) {
+      return unfilterdData.filter((v) => v.language === filterLanguage);
+    }
+
+    return unfilterdData;
+  };
 
   return (
     <div className="bg-dark w-full min-h-screen py-8">
@@ -41,8 +60,12 @@ export function RepositoryListPage() {
 
         {!loading && data && (
           <div className="bg-light divide-y divide-slate-800 mt-5">
-            {data.data.map((row, key) => (
-              <Repo key={key} data={row} />
+            {filterData()?.map((row, key) => (
+              <Repo
+                key={key}
+                data={row}
+                onFilter={() => setFilterLanauge(row.language)}
+              />
             ))}
           </div>
         )}

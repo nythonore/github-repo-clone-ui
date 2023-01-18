@@ -1,15 +1,22 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RepoEntity } from '../types';
 
 interface RepoProps {
   data: RepoEntity;
+  onFilter: () => void;
 }
 
-export function Repo({ data }: RepoProps) {
+export function Repo({ data, onFilter }: RepoProps) {
   const navigate = useNavigate();
 
   const handleOnClick = () => {
     navigate('/repo');
+  };
+
+  const handleOnFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onFilter();
   };
 
   return (
@@ -23,7 +30,9 @@ export function Repo({ data }: RepoProps) {
 
       <button className="flex mt-4 items-center gap-1">
         <div className="w-3 h-3 rounded-full bg-primary-dark" />
-        <span className="text-gray text-sm">{data.language}</span>
+        <button className="text-gray text-sm" onClick={handleOnFilter}>
+          {data.language}
+        </button>
       </button>
     </div>
   );
