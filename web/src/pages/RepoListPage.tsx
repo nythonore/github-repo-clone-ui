@@ -1,7 +1,9 @@
 import { Repo } from '../components';
+import { useFetch } from '../hooks';
+import { ListResponse, RepoEntity } from '../types';
 
 export function RepositoryListPage() {
-  const repos = [1, 2, 3, 4, 5];
+  const { loading, data, error } = useFetch<ListResponse<RepoEntity>>('repos');
 
   return (
     <div className="bg-dark w-full min-h-screen py-8">
@@ -21,15 +23,29 @@ export function RepositoryListPage() {
           <h2 className="text-lg font-bold text-light">Repositories</h2>
 
           <div className="bg-[#343941] text-sm px-2 py-0.5 rounded-xl text-white">
-            {repos.length}
+            {data ? data.data.length : 0}
           </div>
         </div>
 
-        <div className="bg-light divide-y divide-slate-800 mt-5">
-          {repos.map((row, key) => (
-            <Repo key={key} />
-          ))}
-        </div>
+        {loading && (
+          <div className="mt-5">
+            <h2 className="text-white">Loading ...</h2>
+          </div>
+        )}
+
+        {!loading && error && (
+          <div className="mt-5">
+            <h2 className="text-white">Failed to fetch data!</h2>
+          </div>
+        )}
+
+        {!loading && data && (
+          <div className="bg-light divide-y divide-slate-800 mt-5">
+            {data.data.map((row, key) => (
+              <Repo key={key} data={row} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
