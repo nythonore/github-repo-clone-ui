@@ -1,6 +1,14 @@
+import { useNavigate } from 'react-router-dom';
+
 export function Repo() {
+  const navigate = useNavigate();
+
+  const handleOnClick = () => {
+    navigate('/repo');
+  };
+
   return (
-    <div className="py-4 bg-dark cursor-pointer">
+    <div onClick={handleOnClick} className="py-4 bg-dark cursor-pointer">
       <div className="flex justify-between items-center flex-wrap">
         <h2 className="text-xl text-primary font-semibold">
           silverorange-node-react{' '}
