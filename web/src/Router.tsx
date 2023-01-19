@@ -7,7 +7,7 @@ export const router = createBrowserRouter([
     element: <RepositoryListPage />,
   },
   {
-    path: 'repo',
+    path: 'repo/:owner/:name',
     element: <RepositoryViewPage />,
   },
 ]);

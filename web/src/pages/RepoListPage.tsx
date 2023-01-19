@@ -59,7 +59,7 @@ export function RepositoryListPage() {
         )}
 
         {!loading && data && (
-          <div className="bg-light divide-y divide-slate-800 mt-5">
+          <div className="divide-y divide-slate-800 mt-5">
             {filterData()?.map((row, key) => (
               <Repo
                 key={key}

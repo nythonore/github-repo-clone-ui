@@ -13,3 +13,17 @@ export interface RepoEntity {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   created_at: string;
 }
+
+export interface Commitentity {
+  commit: {
+    author: {
+      date: string;
+    };
+    message: string;
+  };
+  author: {
+    login: string;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    avatar_url: string;
+  };
+}

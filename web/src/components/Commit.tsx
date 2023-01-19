@@ -1,19 +1,26 @@
-export function Commit() {
+import { Commitentity } from '../types';
+import { format } from '../utils';
+
+interface CommitProps {
+  data: Commitentity;
+}
+
+export function Commit({ data }: CommitProps) {
   return (
-    <div className="bg-[#161B22] p-4 rounded-lg">
+    <div className="py-2 rounded-lg">
       <p className="text-light/90 font-medium text-[15px]">
-        reactjs setup & added repo component UI
+        {data.commit.message}
       </p>
 
       <div className="flex mt-1.5 items-center gap-1">
         <img
-          alt=""
-          src="https://avatars.githubusercontent.com/u/44605059?s=120&v=4"
+          alt={data.author.login}
+          src={data.author.avatar_url}
           className="w-4 h-4 rounded-full"
         />
-        <p className="text-light text-xs font-normal">nythonore</p>
+        <p className="text-light text-xs font-normal">{data.author.login}</p>
         <p className="text-gray text-xs font-normal">
-          Committed 20 minutes ago
+          {format.dateFromNow(data.commit.author.date)}
         </p>
       </div>
     </div>
